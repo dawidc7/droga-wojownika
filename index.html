@@ -13,6 +13,11 @@
 <link rel="apple-touch-icon" href="./assets/icon-192.png" />
 
 <style>
+/* =========================================================
+   CONFIG: GLOBALNE KOLORY I ZMIENNE
+   Search for: CONFIG: GLOBALNE
+   Tutaj zmienisz kolory, cienie i główne zmienne aplikacji.
+   ========================================================= */
   :root{
     --bg:#0b0b0b;
     --bg2:#121212;
@@ -53,6 +58,11 @@
   }
   button,input,textarea,select{font:inherit}
   button{cursor:pointer}
+/* =========================================================
+   CONFIG: GŁÓWNY KONTENER APLIKACJI
+   Search for: CONFIG: GŁÓWNY KONTENER
+   Rozmiar aplikacji, safe-area i odstępy całej aplikacji.
+   ========================================================= */
   .app{
     max-width:520px;
     margin:0 auto;
@@ -64,6 +74,11 @@
     padding-right:var(--safe-right);
     padding-bottom:calc(110px + var(--safe-bottom));
   }
+/* =========================================================
+   CONFIG: GÓRNY PASEK / LOGO
+   Search for: CONFIG: GÓRNY PASEK
+   Tutaj zmienisz nagłówek, logo, odstęp od Dynamic Island itd.
+   ========================================================= */
   .top{
     /* Keep the brand below the iPhone notch / Dynamic Island */
     padding:
@@ -92,6 +107,11 @@
   .page{display:none;padding:0 18px 28px;animation:fade .18s ease}
   .page.active{display:block}
   @keyframes fade{from{opacity:.45;transform:translateY(4px)}to{opacity:1;transform:none}}
+/* =========================================================
+   CONFIG: STRONA GŁÓWNA - TAJEMNICA RÓŻAŃCA
+   Search for: CONFIG: STRONA GŁÓWNA
+   Wygląd głównego boxu z tajemnicą różańcową.
+   ========================================================= */
   .hero{
     padding:22px;border-radius:30px;min-height:275px;position:relative;overflow:hidden;
     border:1px solid rgba(216,189,132,.22);
@@ -133,6 +153,11 @@
     margin-top:11px;border-radius:22px;padding:17px 18px;background:linear-gradient(120deg,#201d17,#171717);
     border:1px solid rgba(216,189,132,.14)
   }
+/* =========================================================
+   CONFIG: STRONA GŁÓWNA - SŁOWO NA DZIŚ
+   Search for: CONFIG: SŁOWO NA DZIŚ
+   Wygląd codziennego cytatu biblijnego.
+   ========================================================= */
   .daily-word{
     margin-top:12px;
     border-radius:24px;
@@ -181,6 +206,11 @@
   .ring b{position:relative;z-index:1;font-size:12px}
   .progress-row h4{margin:0 0 3px;font-size:14px}
   .progress-row p{margin:0;color:var(--muted);font-size:11px}
+/* =========================================================
+   CONFIG: KARTY FORMULARZY
+   Search for: CONFIG: KARTY FORMULARZY
+   Wspólny wygląd kart używanych w Dzienniku, Bracia i Rodzina.
+   ========================================================= */
   .field-card{
     border:1px solid #292929;background:var(--card);border-radius:22px;padding:17px;margin-bottom:12px
   }
@@ -245,6 +275,46 @@
     box-shadow:0 8px 20px rgba(216,189,132,.11)
   }
   .save.secondary{background:#232323;color:var(--cream);box-shadow:none;border:1px solid #353535}
+
+  /* =========================================================
+     CONFIG: DZIENNIK - WIELE AKTYWNOŚCI
+     Search for: CONFIG: WIELE AKTYWNOŚCI
+     Wygląd osobnych formularzy aktywności w jednym dniu.
+     ========================================================= */
+  .activities-list{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    margin-top:10px;
+  }
+  .activity-entry{
+    border:1px solid #302e29;
+    background:#121211;
+    border-radius:18px;
+    padding:14px;
+  }
+  .activity-entry-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    margin-bottom:4px;
+  }
+  .activity-entry-head b{
+    font-family:Georgia,serif;
+    font-size:15px;
+  }
+  .remove-activity{
+    border:0;
+    background:transparent;
+    color:#938d82;
+    font-size:11px;
+    font-weight:800;
+    padding:6px 0 6px 8px;
+  }
+  .remove-activity:hover{color:#d7c6a3}
+  .activity-entry textarea{min-height:72px}
+  .add-activity-btn{margin-top:12px}
   .save.danger{background:#2b1717;color:#f0c3c0}
   .mini-actions{display:flex;gap:8px;margin-top:10px}.mini-actions .save{padding:11px}
   .tag{display:inline-flex;align-items:center;gap:6px;border:1px solid #3a352d;background:#1b1915;color:#dfcda8;border-radius:999px;padding:6px 10px;font-size:10px;font-weight:800}
@@ -296,10 +366,17 @@
     color:#17120a;
     font-weight:850;
   }
+/* =========================================================
+   CONFIG: DOLNY PASEK NAWIGACJI
+   Search for: CONFIG: DOLNY PASEK
+   WAŻNE: 'bottom' ustawia wysokość paska nad dołem ekranu.
+   Mniejsza wartość = pasek niżej.
+   Aktualnie: bottom: calc(2px + var(--safe-bottom));
+   ========================================================= */
   .bottom{
     position:fixed;
     left:50%;
-    bottom:calc(8px + var(--safe-bottom));
+    bottom:calc(2px + var(--safe-bottom));
     transform:translateX(-50%);
     z-index:30;
     width:min(
@@ -342,6 +419,11 @@
   .stat b{font-family:Georgia,serif;font-size:23px;display:block}.stat span{font-size:9px;color:var(--muted)}
   .notice{font-size:10px;color:#76726b;text-align:center;padding:8px 8px 0;line-height:1.5}
   .activity-hint{margin-top:10px;padding:10px 12px;border-radius:13px;background:#12110f;border:1px solid #302d27;color:#a9a398;font-size:10px;line-height:1.45}
+/* =========================================================
+   CONFIG: DZIENNIK - OSTATNIE 7 DNI
+   Search for: CONFIG: DZIENNIK
+   Wygląd historii ostatnich 7 dni i podglądu wpisu.
+   ========================================================= */
   .history-card{
     margin:0 0 14px;border-radius:24px;padding:16px;
     background:linear-gradient(135deg,#201d17,#151515 68%);
@@ -406,6 +488,11 @@
 
 
   /* iPhone / narrow-screen form layout */
+/* =========================================================
+   CONFIG: IPHONE / MAŁE EKRANY
+   Search for: CONFIG: IPHONE
+   Responsywne poprawki dla małych ekranów i iPhone.
+   ========================================================= */
   @media(max-width:430px){
     .page{
       padding-left:16px;
@@ -484,6 +571,11 @@
   </header>
 
   <main>
+    <!-- =========================================================
+     CONFIG: STRONA GŁÓWNA
+     Search for: CONFIG: STRONA GŁÓWNA
+     Tajemnica różańca, Słowo na dziś, szybkie kafelki i statystyki.
+     ========================================================= -->
     <section class="page active" id="home">
       <div class="hero">
         <div class="date" id="todayLabel"></div>
@@ -525,6 +617,11 @@
       <div class="notice">Nieoficjalny prototyp koncepcyjny. Dane w tej wersji pozostają tylko w tej przeglądarce.</div>
     </section>
 
+    <!-- =========================================================
+     CONFIG: DZIENNIK
+     Search for: CONFIG: DZIENNIK
+     Ostatnie 7 dni, aktywność, Słowo, Różaniec, wdzięczność.
+     ========================================================= -->
     <section class="page" id="journal">
       <div class="title-block"><h2>Dziennik dnia</h2><p>Zapisz to, co najważniejsze. Nie chodzi o perfekcję — chodzi o pamięć, regularność i wzrost.</p></div>
 
@@ -543,44 +640,26 @@
       </div>
       <div class="field-card">
         <h3>Aktywność fizyczna</h3>
-        <div class="desc">Krótki zapis wystarczy: spacer, siłownia, rower, piłka, trening.</div>
-        <div class="checkrow"><div class="copy"><span>🏃</span><div><b>Zrobiłem dziś coś dla ciała</b></div></div><input class="tick" type="checkbox" id="activityDone"></div>
-        <label>Rodzaj aktywności</label>
-        <select id="activityType">
-          <option value="">Wybierz aktywność...</option>
-          <optgroup label="Cardio i wytrzymałość">
-            <option value="running">Bieganie</option>
-            <option value="walking">Spacer / marsz</option>
-            <option value="hiking">Wędrówka / góry</option>
-            <option value="cycling">Rower</option>
-            <option value="swimming">Pływanie</option>
-            <option value="rowing">Wioślarstwo / ergometr</option>
-          </optgroup>
-          <optgroup label="Siła">
-            <option value="gym">Siłownia / trening siłowy</option>
-            <option value="pushups">Pompki</option>
-            <option value="situps">Brzuszki</option>
-            <option value="squats">Przysiady</option>
-            <option value="pullups">Podciąganie</option>
-            <option value="plank">Deska</option>
-          </optgroup>
-          <optgroup label="Sport">
-            <option value="football">Piłka nożna</option>
-            <option value="padel">Padel</option>
-            <option value="tennis">Tenis</option>
-            <option value="basketball">Koszykówka</option>
-            <option value="martial">Sporty walki</option>
-          </optgroup>
-          <optgroup label="Inne">
-            <option value="stretching">Rozciąganie / mobilność</option>
-            <option value="other">Inna aktywność</option>
-          </optgroup>
-        </select>
+        <div class="desc">Możesz zapisać jedną lub kilka aktywności wykonanych tego dnia.</div>
 
-        <div id="activityDynamicFields"></div>
+        <div class="checkrow">
+          <div class="copy">
+            <span>🏃</span>
+            <div><b>Zrobiłem dziś coś dla ciała</b></div>
+          </div>
+          <input class="tick" type="checkbox" id="activityDone">
+        </div>
 
-        <label>Notatka</label>
-        <textarea id="activityNote" placeholder="Jak się czułem? Co zrobiłem?"></textarea>
+        <!--
+          CONFIG: DZIENNIK - WIELE AKTYWNOŚCI
+          Search for: CONFIG: WIELE AKTYWNOŚCI
+          JavaScript tworzy tutaj osobny formularz dla każdej aktywności.
+        -->
+        <div id="activitiesList"></div>
+
+        <button type="button" class="save secondary add-activity-btn" id="addActivity">
+          + Dodaj kolejną aktywność
+        </button>
       </div>
       <div class="field-card">
         <h3>Słowo, które do mnie przemówiło</h3>
@@ -642,6 +721,11 @@
       <button class="save" id="saveJournal">Zapisz dzień</button>
     </section>
 
+    <!-- =========================================================
+     CONFIG: BRACIA
+     Search for: CONFIG: BRACIA
+     Brat miesiąca, lista braci, randomiser i zapisy spotkań.
+     ========================================================= -->
     <section class="page" id="brothers">
       <div class="title-block"><h2>Bracia</h2><p>Każdego miesiąca wylosuj jednego brata i świadomie zorganizujcie wspólny czas.</p></div>
       <div class="person-card">
@@ -675,6 +759,11 @@
       <div class="timeline" id="brotherTimeline"></div>
     </section>
 
+    <!-- =========================================================
+     CONFIG: RODZINA
+     Search for: CONFIG: RODZINA
+     Wpisy rodzinne, zdjęcia i album rodzinny.
+     ========================================================= -->
     <section class="page" id="family">
       <div class="title-block"><h2>Rodzina</h2><p>Niech zwykłe wspólne chwile nie znikają. Zapisuj wyjścia, spotkania, zabawne dni i ważne wspomnienia.</p></div>
       <div class="field-card">
@@ -692,6 +781,11 @@
       <div class="timeline" id="familyTimeline"></div>
     </section>
 
+    <!-- =========================================================
+     CONFIG: WIĘCEJ / PODSUMOWANIE
+     Search for: CONFIG: WIĘCEJ
+     Statystyki, eksport danych i reset danych.
+     ========================================================= -->
     <section class="page" id="more">
       <div class="title-block"><h2>Podsumowanie</h2><p>Prosty widok twojej regularności i zapisanych wspomnień.</p></div>
       <div class="grid2">
@@ -710,6 +804,11 @@
     </section>
   </main>
 
+  <!-- =========================================================
+     CONFIG: DOLNY PASEK NAWIGACJI
+     Search for: CONFIG: DOLNY PASEK
+     Przyciski: Dziś, Dziennik, Bracia, Rodzina, Więcej.
+     ========================================================= -->
   <nav class="bottom">
     <button class="nav active" data-page="home"><span class="ni">⌂</span>Dziś</button>
     <button class="nav" data-page="journal"><span class="ni">✎</span>Dziennik</button>
@@ -721,31 +820,46 @@
 <div class="toast" id="toast"></div>
 
 <script>
+/* =========================================================
+   CONFIG: JAVASCRIPT / LOGIKA APLIKACJI
+   Search for: CONFIG: JAVASCRIPT
+   Poniżej znajduje się logika zapisu danych, Dziennika,
+   Braci, Rodziny, cytatów i statystyk.
+   ========================================================= */
+
 const STORE='wm_droga_wojownika_v1';
 const emptyState={journal:{},brothers:[],brotherPick:{},brotherEvents:[],familyEvents:[]};
 let state=load();
 
+/* Wczytuje zapisane dane użytkownika z localStorage. */
 function load(){
   try{return {...emptyState,...JSON.parse(localStorage.getItem(STORE)||'{}')}}
   catch(e){return JSON.parse(JSON.stringify(emptyState))}
 }
+/* Zapisuje aktualny stan aplikacji do localStorage i odświeża ekran. */
 function persist(){
   try{localStorage.setItem(STORE,JSON.stringify(state));}
   catch(e){toast('Brak miejsca — usuń część zdjęć lub wpisów.');}
   renderAll();
 }
 const pad=n=>String(n).padStart(2,'0');
+/* Zamienia datę na format YYYY-MM-DD używany jako klucz wpisu. */
 function ymd(d=new Date()){return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`}
+/* Formatuje datę do czytelnej polskiej wersji. */
 function niceDate(s){
   const d=new Date(s+'T12:00:00');
   return d.toLocaleDateString('pl-PL',{day:'numeric',month:'short',year:'numeric'})
 }
+/* Zwraca klucz miesiąca YYYY-MM do statystyk i losowania brata. */
 function monthKey(d=new Date()){return `${d.getFullYear()}-${pad(d.getMonth()+1)}`}
+/* Zwraca nazwę bieżącego miesiąca po polsku. */
 function monthLabel(d=new Date()){return d.toLocaleDateString('pl-PL',{month:'long',year:'numeric'})}
+/* Pokazuje krótką wiadomość potwierdzającą na dole ekranu. */
 function toast(msg){
   const t=document.getElementById('toast'); t.textContent=msg;t.classList.add('show');
   clearTimeout(window.__toast);window.__toast=setTimeout(()=>t.classList.remove('show'),1800);
 }
+/* Przełącza aktywną zakładkę aplikacji. */
 function go(page){
   document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id===page));
   document.querySelectorAll('.nav').forEach(n=>n.classList.toggle('active',n.dataset.page===page));
@@ -755,6 +869,11 @@ function go(page){
 document.querySelectorAll('.nav').forEach(b=>b.onclick=()=>go(b.dataset.page));
 document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>go(b.dataset.go));
 
+/* =========================================================
+   CONFIG: STRONA GŁÓWNA - TAJEMNICE RÓŻAŃCA
+   Search for: CONFIG: TAJEMNICE RÓŻAŃCA
+   Teksty tajemnic i przypisanie ich do dni tygodnia.
+   ========================================================= */
 const mysteries={
   joyful:{
     title:'Tajemnice radosne',
@@ -777,6 +896,7 @@ const mysteries={
     list:['Chrzest Pana Jezusa w Jordanie','Objawienie Jezusa na weselu w Kanie','Głoszenie Królestwa Bożego i wzywanie do nawrócenia','Przemienienie na górze Tabor','Ustanowienie Eucharystii']
   }
 };
+/* Wybiera właściwy zestaw tajemnic różańcowych dla danego dnia tygodnia. */
 function mysteryFor(d=new Date()){
   const day=d.getDay();
   if(day===1||day===6)return mysteries.joyful;
@@ -785,6 +905,11 @@ function mysteryFor(d=new Date()){
   return mysteries.luminous;
 }
 
+/* =========================================================
+   CONFIG: STRONA GŁÓWNA - CYTATY BIBLIJNE
+   Search for: CONFIG: CYTATY BIBLIJNE
+   Lista cytatów wyświetlanych jako 'Słowo na dziś'.
+   ========================================================= */
 const dailyBibleQuotes = [
   {text:'Wszystko mogę w Tym, który mnie umacnia.', ref:'Flp 4,13'},
   {text:'Pan jest moim pasterzem, nie brak mi niczego.', ref:'Ps 23,1'},
@@ -819,11 +944,13 @@ const dailyBibleQuotes = [
   {text:'Bóg pysznym się sprzeciwia, a pokornym łaskę daje.', ref:'Jk 4,6'}
 ];
 
+/* Oblicza numer dnia w roku, używany do codziennej rotacji cytatów. */
 function dayOfYear(date){
   const start = new Date(date.getFullYear(),0,0);
   const diff = date - start;
   return Math.floor(diff / 86400000);
 }
+/* Wybiera i wyświetla cytat biblijny na dany dzień. */
 function renderDailyBibleQuote(date=new Date()){
   const index=(dayOfYear(date)-1) % dailyBibleQuotes.length;
   const q=dailyBibleQuotes[index < 0 ? 0 : index];
@@ -844,6 +971,11 @@ document.getElementById('mysteryExpand').onclick=()=>{
 };
 
 
+/* =========================================================
+   CONFIG: DZIENNIK - AKTYWNOŚĆ FIZYCZNA
+   Search for: CONFIG: AKTYWNOŚĆ FIZYCZNA
+   Nazwy aktywności i pola pokazywane dla każdej aktywności.
+   ========================================================= */
 const activityLabels={
   running:'Bieganie',walking:'Spacer / marsz',hiking:'Wędrówka / góry',
   cycling:'Rower',swimming:'Pływanie',rowing:'Wioślarstwo / ergometr',
@@ -935,47 +1067,230 @@ const activitySchemas={
   ]
 };
 
-function renderActivityFields(saved={}){
-  const type=document.getElementById('activityType').value;
-  const wrap=document.getElementById('activityDynamicFields');
-  const schema=activitySchemas[type]||[];
-  const metrics=saved.activityMetrics||{};
-  if(!schema.length){
-    wrap.innerHTML='<div class="desc" style="margin-top:10px">Wybierz aktywność, a pokażę odpowiednie pola.</div>';
-    return;
-  }
-  wrap.innerHTML='<div class="row">'+schema.map((f,i)=>{
-    const [key,label,inputType,placeholder]=f;
-    const value=metrics[key]??'';
-    return `<div ${schema.length%2===1 && i===schema.length-1 ? 'style="grid-column:1/-1"' : ''}>
-      <label>${label}</label>
-      <input data-activity-metric="${key}" type="${inputType}" min="${inputType==='number'?'0':''}" step="${key==='distance'?'0.01':'1'}" value="${String(value).replace(/"/g,'&quot;')}" placeholder="${placeholder}">
-    </div>`;
-  }).join('')+'</div>';
-}
+/* =========================================================
+   CONFIG: DZIENNIK - WIELE AKTYWNOŚCI
+   Search for: CONFIG: WIELE AKTYWNOŚCI
+   Obsługuje dowolną liczbę aktywności w jednym dniu.
+   Każda aktywność ma własny typ, metryki i notatkę.
+   ========================================================= */
 
-function collectActivityMetrics(){
-  const out={};
-  document.querySelectorAll('[data-activity-metric]').forEach(el=>{
-    if(el.value!=='') out[el.dataset.activityMetric]=el.value;
+/* Zwraca opcje <select> dla rodzaju aktywności. */
+function activityOptionsHtml(selected=''){
+  const groups=[
+    ['Cardio i wytrzymałość',[
+      ['running','Bieganie'],
+      ['walking','Spacer / marsz'],
+      ['hiking','Wędrówka / góry'],
+      ['cycling','Rower'],
+      ['swimming','Pływanie'],
+      ['rowing','Wioślarstwo / ergometr']
+    ]],
+    ['Siła',[
+      ['gym','Siłownia / trening siłowy'],
+      ['pushups','Pompki'],
+      ['situps','Brzuszki'],
+      ['squats','Przysiady'],
+      ['pullups','Podciąganie'],
+      ['plank','Deska']
+    ]],
+    ['Sport',[
+      ['football','Piłka nożna'],
+      ['padel','Padel'],
+      ['tennis','Tenis'],
+      ['basketball','Koszykówka'],
+      ['martial','Sporty walki']
+    ]],
+    ['Inne',[
+      ['stretching','Rozciąganie / mobilność'],
+      ['other','Inna aktywność']
+    ]]
+  ];
+
+  let out='<option value="">Wybierz aktywność...</option>';
+  groups.forEach(([label,items])=>{
+    out+=`<optgroup label="${label}">`;
+    items.forEach(([value,text])=>{
+      out+=`<option value="${value}" ${selected===value?'selected':''}>${text}</option>`;
+    });
+    out+='</optgroup>';
   });
   return out;
 }
 
-document.getElementById('activityType').addEventListener('change',()=>renderActivityFields({}));
-renderActivityFields({});
+/* Rysuje pola liczbowe odpowiednie dla konkretnej aktywności. */
+function renderActivityMetricsForEntry(entryEl, savedMetrics={}){
+  const type=entryEl.querySelector('.activity-type').value;
+  const wrap=entryEl.querySelector('.activity-metrics');
+  const schema=activitySchemas[type]||[];
+
+  if(!schema.length){
+    wrap.innerHTML='<div class="desc" style="margin-top:10px">Wybierz aktywność, a pokażę odpowiednie pola.</div>';
+    return;
+  }
+
+  wrap.innerHTML='<div class="row">'+schema.map((f,i)=>{
+    const [key,label,inputType,placeholder]=f;
+    const value=savedMetrics[key]??'';
+    const step=(key==='distance')?'0.01':'1';
+    return `<div ${schema.length%2===1 && i===schema.length-1 ? 'style="grid-column:1/-1"' : ''}>
+      <label>${label}</label>
+      <input
+        class="activity-metric"
+        data-metric-key="${key}"
+        type="${inputType}"
+        min="${inputType==='number'?'0':''}"
+        step="${step}"
+        value="${escapeHtml(String(value))}"
+        placeholder="${placeholder}">
+    </div>`;
+  }).join('')+'</div>';
+}
+
+/* Tworzy pojedynczy formularz aktywności. */
+function activityEntryHtml(activity={}, index=0, total=1){
+  const type=activity.type||'';
+  const note=activity.note||'';
+  return `
+    <div class="activity-entry" data-activity-index="${index}">
+      <div class="activity-entry-head">
+        <b>Aktywność ${index+1}</b>
+        ${total>1?'<button type="button" class="remove-activity">Usuń</button>':''}
+      </div>
+
+      <label>Rodzaj aktywności</label>
+      <select class="activity-type">
+        ${activityOptionsHtml(type)}
+      </select>
+
+      <div class="activity-metrics"></div>
+
+      <label>Notatka</label>
+      <textarea class="activity-note" placeholder="Jak się czułem? Co zrobiłem?">${escapeHtml(note)}</textarea>
+    </div>`;
+}
+
+/* Rysuje wszystkie aktywności zapisane/edytowane dla wybranego dnia. */
+function renderActivitiesEditor(activities=[]){
+  const list=document.getElementById('activitiesList');
+  const items=activities.length?activities:[{}];
+
+  list.classList.add('activities-list');
+  list.innerHTML=items.map((activity,index)=>activityEntryHtml(activity,index,items.length)).join('');
+
+  list.querySelectorAll('.activity-entry').forEach((entryEl,index)=>{
+    renderActivityMetricsForEntry(entryEl,items[index]?.metrics||{});
+  });
+}
+
+/* Zbiera jedną aktywność z konkretnego formularza. */
+function collectActivityFromEntry(entryEl){
+  const type=entryEl.querySelector('.activity-type').value;
+  const note=entryEl.querySelector('.activity-note').value.trim();
+  const metrics={};
+
+  entryEl.querySelectorAll('.activity-metric').forEach(input=>{
+    if(input.value!=='') metrics[input.dataset.metricKey]=input.value;
+  });
+
+  return {
+    type,
+    label:activityLabels[type]||'',
+    metrics,
+    note
+  };
+}
+
+/* Zbiera wszystkie aktywności i pomija całkowicie puste pozycje. */
+function collectActivities(){
+  return [...document.querySelectorAll('#activitiesList .activity-entry')]
+    .map(collectActivityFromEntry)
+    .filter(a=>a.type || a.note || Object.keys(a.metrics).length);
+}
+
+/* Zamienia stary zapis pojedynczej aktywności na nową tablicę activities[]. */
+function normalizeActivities(entry={}){
+  if(Array.isArray(entry.activities)){
+    return entry.activities.map(a=>({
+      type:a.type||'',
+      label:a.label||activityLabels[a.type]||'',
+      metrics:a.metrics||{},
+      note:a.note||''
+    }));
+  }
+
+  if(entry.activityType || entry.activityNote || entry.activityMetrics){
+    let type=entry.activityType||'';
+    let metrics=entry.activityMetrics||{};
+
+    if(type && !activitySchemas[type]){
+      metrics={...metrics,customName:type};
+      type='other';
+    }
+
+    return [{
+      type,
+      label:entry.activityLabel||activityLabels[type]||'',
+      metrics,
+      note:entry.activityNote||''
+    }];
+  }
+
+  return [];
+}
+
+/* Dodaje kolejny pusty formularz, zachowując to co już wpisano. */
+document.getElementById('addActivity').addEventListener('click',()=>{
+  const current=[...document.querySelectorAll('#activitiesList .activity-entry')]
+    .map(collectActivityFromEntry);
+
+  current.push({});
+  renderActivitiesEditor(current);
+});
+
+/* Zmiana rodzaju aktywności odświeża tylko pola dla tej konkretnej aktywności. */
+document.getElementById('activitiesList').addEventListener('change',event=>{
+  if(!event.target.classList.contains('activity-type')) return;
+
+  const entryEl=event.target.closest('.activity-entry');
+  renderActivityMetricsForEntry(entryEl,{});
+
+  if(event.target.value){
+    document.getElementById('activityDone').checked=true;
+  }
+});
+
+/* Usuwa wybraną aktywność z formularza. */
+document.getElementById('activitiesList').addEventListener('click',event=>{
+  if(!event.target.classList.contains('remove-activity')) return;
+
+  const current=[...document.querySelectorAll('#activitiesList .activity-entry')]
+    .filter(el=>el!==event.target.closest('.activity-entry'))
+    .map(collectActivityFromEntry);
+
+  renderActivitiesEditor(current);
+});
+
+renderActivitiesEditor([]);
 
 
+/* =========================================================
+   CONFIG: DZIENNIK - OSTATNIE 7 DNI
+   Search for: CONFIG: OSTATNIE 7 DNI
+   Logika kolorów, statusów i podglądu historii.
+   ========================================================= */
 let selectedHistoryDate=ymd();
 
+/* Zwraca skrót dnia tygodnia dla widoku ostatnich 7 dni. */
 function dayShortLabel(dateStr){
   const d=new Date(dateStr+'T12:00:00');
   return ['nd','po','wt','śr','cz','pt','so'][d.getDay()];
 }
+/* Zwraca pełną nazwę daty dla podglądu wpisu. */
 function longDateLabel(dateStr){
   const d=new Date(dateStr+'T12:00:00');
   return d.toLocaleDateString('pl-PL',{weekday:'long', day:'numeric', month:'long'});
 }
+/* Sprawdza 4 elementy dnia: aktywność, Słowo, Różaniec i wdzięczność. */
 function entryChecks(entry={}){
   return [
     !!entry.activityDone,
@@ -984,37 +1299,64 @@ function entryChecks(entry={}){
     !!entry.gratitudeDone
   ];
 }
+/* Liczy ile z 4 codziennych elementów zostało wykonanych. */
 function entryDoneCount(entry={}){
   return entryChecks(entry).filter(Boolean).length;
 }
+/* Ustala status dnia: pusty, częściowy albo pełny. */
 function entryStatus(entry={}){
   const done=entryDoneCount(entry);
   if(done===0) return 'empty';
   if(done===4) return 'full';
   return 'partial';
 }
+/* Zachowuje zgodność ze starszymi pojedynczymi wpisami aktywności. */
 function metricText(entry={}){
-  const m=entry.activityMetrics||{};
+  return activityMetricsText(entry.activityMetrics||{});
+}
+/* Buduje opis metryk pojedynczej aktywności. */
+function activityMetricsText(metrics={}){
   const parts=[];
-  if(m.customName) parts.push(m.customName);
-  if(m.distance) parts.push(m.distance+' km');
-  if(m.distanceM) parts.push(m.distanceM+' m');
-  if(m.time) parts.push(m.time+' min');
-  if(m.timeSec) parts.push(m.timeSec+' sek.');
-  if(m.reps) parts.push(m.reps+' powt.');
-  if(m.sets) parts.push(m.sets+' ser.');
-  if(m.steps) parts.push(m.steps+' kroków');
-  if(m.elevation) parts.push(m.elevation+' m ↑');
-  if(m.weight) parts.push(m.weight+' kg');
-  if(m.rounds) parts.push(m.rounds+' rund');
+  if(metrics.customName) parts.push(metrics.customName);
+  if(metrics.distance) parts.push(metrics.distance+' km');
+  if(metrics.distanceM) parts.push(metrics.distanceM+' m');
+  if(metrics.time) parts.push(metrics.time+' min');
+  if(metrics.timeSec) parts.push(metrics.timeSec+' sek.');
+  if(metrics.reps) parts.push(metrics.reps+' powt.');
+  if(metrics.sets) parts.push(metrics.sets+' ser.');
+  if(metrics.steps) parts.push(metrics.steps+' kroków');
+  if(metrics.elevation) parts.push(metrics.elevation+' m ↑');
+  if(metrics.weight) parts.push(metrics.weight+' kg');
+  if(metrics.rounds) parts.push(metrics.rounds+' rund');
   return parts.join(' • ');
 }
+
+/* Buduje tekstowe podsumowanie wszystkich aktywności z danego dnia. */
 function activitySummary(entry={}){
   if(!entry.activityDone) return 'Brak zapisanej aktywności';
-  const label=entry.activityLabel||activityLabels[entry.activityType]||'Aktywność';
-  const metrics=metricText(entry);
-  return metrics ? `${label} • ${metrics}` : label;
+
+  const activities=normalizeActivities(entry);
+  if(!activities.length) return 'Aktywność zaznaczona';
+
+  return activities.map(activity=>{
+    const label=activity.label||activityLabels[activity.type]||'Aktywność';
+    const metrics=activityMetricsText(activity.metrics||{});
+    return metrics ? `${label} • ${metrics}` : label;
+  }).join(' + ');
 }
+
+/* Krótki tekst aktywności na kafelku strony głównej. */
+function activityQuickSummary(entry={}){
+  if(!entry.activityDone) return 'Dodaj dzisiejszy ruch';
+
+  const activities=normalizeActivities(entry);
+  if(activities.length>1) return `${activities.length} aktywności`;
+  if(activities.length===1){
+    return activities[0].label||activityLabels[activities[0].type]||'Aktywność zapisana';
+  }
+  return 'Aktywność zapisana';
+}
+/* Zamienia kod intencji różańca na czytelny tekst. */
 function rosaryIntentionLabel(entry={}){
   const map={
     rodzina:'Za rodzinę',
@@ -1033,13 +1375,16 @@ function rosaryIntentionLabel(entry={}){
   if(entry.rosaryIntention==='inna' && entry.rosaryIntentionCustom) return entry.rosaryIntentionCustom;
   return map[entry.rosaryIntention] || 'Intencja niepodana';
 }
+/* Buduje podsumowanie wpisu wdzięczności. */
 function gratitudeSummary(entry={}){
   if(!entry.gratitudeDone) return 'Brak wpisu wdzięczności';
   return entry.gratitudeText ? shorten(entry.gratitudeText, 100) : 'Wdzięczność zaznaczona';
 }
+/* Skraca długie teksty w podglądach. */
 function shorten(text='', max=120){
   return text.length>max ? text.slice(0,max-1)+'…' : text;
 }
+/* Rysuje 7 ostatnich dni i nadaje im status pełny/częściowy/pusty. */
 function renderHistory7(){
   const wrap=document.getElementById('historyRow');
   if(!wrap) return;
@@ -1062,6 +1407,7 @@ function renderHistory7(){
     </button>`;
   }).join('');
 }
+/* Pokazuje szczegóły klikniętego dnia w historii. */
 function renderHistoryPreview(dateStr){
   const entry=state.journal[dateStr]||{};
   const done=entryDoneCount(entry);
@@ -1124,6 +1470,12 @@ window.openJournalForDate=(dateStr)=>{
 };
 
 
+/* =========================================================
+   CONFIG: DZIENNIK - RÓŻANIEC I WDZIĘCZNOŚĆ
+   Search for: CONFIG: RÓŻANIEC
+   Logika własnej intencji różańca.
+   ========================================================= */
+/* Pokazuje własne pole intencji, gdy wybrano 'Inna intencja'. */
 function toggleRosaryCustom(){
   const wrap=document.getElementById('rosaryCustomWrap');
   if(!wrap) return;
@@ -1139,26 +1491,26 @@ document.getElementById('brotherEventDate').value=ymd();
 document.getElementById('familyEventDate').value=ymd();
 entryDate.onchange=()=>loadJournal(entryDate.value);
 
+/* Wczytuje wpis Dziennika dla wybranej daty do formularza. */
 function loadJournal(date){
   const e=state.journal[date]||{};
-  if(e.activityMinutes && !e.activityMetrics) e.activityMetrics={time:e.activityMinutes};
-  if(e.activityType && !activitySchemas[e.activityType]){
-    const legacy=e.activityType;
-    e.activityType='other';
-    e.activityLabel=legacy;
-    e.activityMetrics={...(e.activityMetrics||{}),customName:legacy};
+
+  if(e.activityMinutes && !e.activityMetrics){
+    e.activityMetrics={time:e.activityMinutes};
   }
+
   activityDone.checked=!!e.activityDone;
-  activityType.value=e.activityType||'';
-  renderActivityFields(e);
-  activityNote.value=e.activityNote||'';
+  renderActivitiesEditor(normalizeActivities(e));
+
   wordSource.value=e.wordSource||'Biblia';
   wordRef.value=e.wordRef||'';
   wordText.value=e.wordText||'';
+
   rosaryDone.checked=!!e.rosaryDone;
   rosaryIntention.value=e.rosaryIntention||'';
   rosaryIntentionCustom.value=e.rosaryIntentionCustom||'';
   toggleRosaryCustom();
+
   gratitudeDone.checked=!!e.gratitudeDone;
   gratitudeText.value=e.gratitudeText||'';
 }
@@ -1166,31 +1518,45 @@ loadJournal(ymd());
 
 document.getElementById('saveJournal').onclick=()=>{
   const date=entryDate.value||ymd();
+  const activities=collectActivities();
+  const hasLoggedActivity=activities.some(a=>a.type);
+
   state.journal[date]={
-    activityDone:activityDone.checked,
-    activityType:activityType.value,
-    activityLabel:activityLabels[activityType.value]||'',
-    activityMetrics:collectActivityMetrics(),
-    activityNote:activityNote.value.trim(),
+    // Aktywność fizyczna nadal stanowi tylko 1 z 4 części dnia,
+    // niezależnie od tego czy zapisano 1 czy 5 różnych aktywności.
+    activityDone:activityDone.checked || hasLoggedActivity,
+    activities,
+
     wordSource:wordSource.value,
     wordRef:wordRef.value.trim(),
     wordText:wordText.value.trim(),
+
     rosaryDone:rosaryDone.checked,
     rosaryIntention:rosaryIntention.value,
     rosaryIntentionCustom:rosaryIntentionCustom.value.trim(),
+
     gratitudeDone:gratitudeDone.checked,
     gratitudeText:gratitudeText.value.trim()
   };
+
   selectedHistoryDate=date;
-  persist();toast('Dzień zapisany ✓');go('home');
+  persist();
+  toast('Dzień zapisany ✓');
+  go('home');
 };
 
+/* =========================================================
+   CONFIG: BRACIA
+   Search for: CONFIG: BRACIA
+   Dodawanie braci, losowanie brata miesiąca i zapisy spotkań.
+   ========================================================= */
 document.getElementById('addBrother').onclick=()=>{
   const n=brotherName.value.trim();
   if(!n)return toast('Wpisz imię brata.');
   if(!state.brothers.includes(n))state.brothers.push(n);
   brotherName.value='';persist();toast('Dodano do listy');
 };
+/* Losuje brata miesiąca; przy ponownym losowaniu unika tej samej osoby, jeśli może. */
 function drawBrotherName(forceReroll=false){
   if(!state.brothers.length)return toast('Najpierw dodaj przynajmniej jednego brata.');
   const k=monthKey();
@@ -1218,6 +1584,7 @@ function drawBrotherName(forceReroll=false){
 document.getElementById('drawBrother').onclick=()=>drawBrotherName(false);
 document.getElementById('redrawBrother').onclick=()=>drawBrotherName(true);
 
+/* Zamienia wybrane zdjęcia na dane możliwe do zapisania lokalnie. */
 async function filesToData(input){
   const files=[...input.files].slice(0,6), out=[];
   for(const file of files){
@@ -1226,6 +1593,7 @@ async function filesToData(input){
   }
   return out;
 }
+/* Zmniejsza zdjęcie przed zapisaniem, aby ograniczyć zużycie localStorage. */
 function resizeImage(file){
   return new Promise((resolve)=>{
     const r=new FileReader();
@@ -1252,6 +1620,11 @@ document.getElementById('saveBrotherEvent').onclick=async()=>{
   brotherEventWith.value='';brotherEventTitle.value='';brotherEventNote.value='';brotherPhotos.value='';
   persist();toast('Spotkanie zapisane');
 };
+/* =========================================================
+   CONFIG: RODZINA
+   Search for: CONFIG: RODZINA
+   Zapisy rodzinnych dni, notatek i zdjęć.
+   ========================================================= */
 document.getElementById('saveFamilyEvent').onclick=async()=>{
   if(!familyEventTitle.value.trim())return toast('Dodaj krótki opis wspólnego dnia.');
   const photos=await filesToData(familyPhotos);
@@ -1263,6 +1636,7 @@ document.getElementById('saveFamilyEvent').onclick=async()=>{
   persist();toast('Wspomnienie zapisane');
 };
 
+/* Buduje HTML pojedynczego wpisu Bracia/Rodzina. */
 function eventHtml(e,kind){
   const d=new Date(e.date+'T12:00:00');
   const mon=d.toLocaleDateString('pl-PL',{month:'short'}).replace('.','').toUpperCase();
@@ -1275,6 +1649,7 @@ function eventHtml(e,kind){
     </div>
   </div>`;
 }
+/* Zabezpiecza tekst użytkownika przed wstrzyknięciem HTML. */
 function escapeHtml(s=''){return s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]))}
 window.deleteEvent=(kind,id)=>{
   if(!confirm('Usunąć ten wpis?'))return;
@@ -1285,6 +1660,12 @@ window.removeBrother=(name)=>{
   state.brothers=state.brothers.filter(n=>n!==decodeURIComponent(name));persist();
 };
 
+/* =========================================================
+   CONFIG: ODŚWIEŻANIE WIDOKU / STATYSTYKI
+   Search for: CONFIG: RENDER ALL
+   Odświeża wartości na ekranie po każdym zapisie.
+   ========================================================= */
+/* Odświeża wszystkie statystyki, listy i podsumowania w interfejsie. */
 function renderAll(){
   const today=state.journal[ymd()]||{};
   const checks=[
@@ -1296,7 +1677,7 @@ function renderAll(){
   const done=checks.filter(Boolean).length,pct=Math.round(done/4*100);
   completionText.textContent=`${done} z 4 wykonane`;
   progressPct.textContent=pct+'%';progressRing.style.setProperty('--p',pct);
-  quickActivity.textContent=today.activityDone?(today.activityLabel||activityLabels[today.activityType]||'Aktywność zapisana'):'Dodaj dzisiejszy ruch';
+  quickActivity.textContent=activityQuickSummary(today);
   quickWord.textContent=today.wordText?(today.wordRef||'Słowo zapisane'):'Zapisz fragment, który przemówił';
 
   if(!state.journal[selectedHistoryDate]) {
@@ -1348,9 +1729,14 @@ document.getElementById('resetData').onclick=()=>{
 </script>
 
 <script>
+/* =========================================================
+   CONFIG: PWA / SERVICE WORKER
+   Search for: CONFIG: PWA
+   Rejestruje service worker odpowiedzialny za cache/offline.
+   ========================================================= */
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('./service-worker.js?v=3')
+    navigator.serviceWorker.register('./service-worker.js?v=4')
       .then(reg => console.log('Service worker registered:', reg.scope))
       .catch(err => console.error('Service worker registration failed:', err));
   });
