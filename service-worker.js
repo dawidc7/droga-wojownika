@@ -1,4 +1,4 @@
-const CACHE_NAME = 'droga-wojownika-v3';
+const CACHE_NAME = 'droga-wojownika-v4';
 
 const APP_SHELL = [
   './',
@@ -42,7 +42,7 @@ async function injectAnnouncementScript(response) {
   if (!contentType.includes('text/html')) return response;
 
   const text = await response.text();
-  const scriptTag = '<script src="./announcement.js?v=1"></script>';
+  const scriptTag = '<script src="./announcement.js?v=2"></script>';
   const output = text.includes('announcement.js')
     ? text
     : text.replace('</body>', `${scriptTag}\n</body>`);
