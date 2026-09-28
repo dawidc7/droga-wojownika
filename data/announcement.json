@@ -2,8 +2,8 @@
   "active": true,
   "title": "Spotkanie Regionalne Październik",
   "message": "Spotkanie Regionalne już blisko! Nie może ciebie zabraknąć, bracie. Totus Tuus.",
-  "image": "Plakat-Pazdziernik-2026.JPEG",
-  "imageAlt": "",
+  "image": "./assets/posters/Plakat-Pazdziernik-2026.JPEG",
+  "imageAlt": "Spotkanie Regionalne Październik",
   "link": "",
   "linkText": "Zobacz więcej"
 }
