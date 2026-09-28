@@ -292,6 +292,59 @@
     background:#121211;
     border-radius:18px;
     padding:14px;
+    transition:border-color .18s ease, background .18s ease;
+  }
+  .activity-entry.collapsed{
+    background:#11110f;
+    border-color:#2a2824;
+  }
+  .activity-toggle{
+    width:100%;
+    border:0;
+    background:transparent;
+    color:var(--cream);
+    padding:0;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    text-align:left;
+  }
+  .activity-toggle-left{
+    min-width:0;
+    display:flex;
+    flex-direction:column;
+    gap:3px;
+  }
+  .activity-title{
+    font-family:Georgia,serif;
+    font-size:15px;
+    font-weight:700;
+  }
+  .activity-summary{
+    font-size:10px;
+    line-height:1.35;
+    color:var(--muted);
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    max-width:280px;
+  }
+  .activity-chevron{
+    flex:0 0 auto;
+    color:var(--gold);
+    font-size:14px;
+    transition:transform .18s ease;
+  }
+  .activity-entry.collapsed .activity-chevron{
+    transform:rotate(-90deg);
+  }
+  .activity-body{
+    display:block;
+    margin-top:8px;
+  }
+  .activity-entry.collapsed .activity-body{
+    display:none;
   }
   .activity-entry-head{
     display:flex;
@@ -303,6 +356,11 @@
   .activity-entry-head b{
     font-family:Georgia,serif;
     font-size:15px;
+  }
+  .activity-entry-actions{
+    display:flex;
+    justify-content:flex-end;
+    margin-top:6px;
   }
   .remove-activity{
     border:0;
@@ -1146,39 +1204,68 @@ function renderActivityMetricsForEntry(entryEl, savedMetrics={}){
   }).join('')+'</div>';
 }
 
-/* Tworzy pojedynczy formularz aktywności. */
-function activityEntryHtml(activity={}, index=0, total=1){
+/* Buduje krótki opis widoczny, gdy aktywność jest zwinięta. */
+function activityCollapsedSummary(activity={}){
+  const type=activity.type||'';
+  const label=activity.label||activityLabels[type]||'Wybierz aktywność';
+  const metrics=activityMetricsText(activity.metrics||{});
+
+  if(metrics) return `${label} · ${metrics}`;
+  if(activity.note) return `${label} · ${shorten(activity.note,60)}`;
+  return label;
+}
+
+/* Tworzy pojedynczy, rozwijany formularz aktywności. */
+function activityEntryHtml(activity={}, index=0, total=1, collapsed=false){
   const type=activity.type||'';
   const note=activity.note||'';
+  const summary=activityCollapsedSummary(activity);
+
   return `
-    <div class="activity-entry" data-activity-index="${index}">
-      <div class="activity-entry-head">
-        <b>Aktywność ${index+1}</b>
-        ${total>1?'<button type="button" class="remove-activity">Usuń</button>':''}
+    <div class="activity-entry ${collapsed?'collapsed':''}" data-activity-index="${index}">
+      <button type="button" class="activity-toggle" aria-expanded="${collapsed?'false':'true'}">
+        <span class="activity-toggle-left">
+          <span class="activity-title">Aktywność ${index+1}</span>
+          <span class="activity-summary">${escapeHtml(summary)}</span>
+        </span>
+        <span class="activity-chevron">⌄</span>
+      </button>
+
+      <div class="activity-body">
+        <label>Rodzaj aktywności</label>
+        <select class="activity-type">
+          ${activityOptionsHtml(type)}
+        </select>
+
+        <div class="activity-metrics"></div>
+
+        <label>Notatka</label>
+        <textarea class="activity-note" placeholder="Jak się czułem? Co zrobiłem?">${escapeHtml(note)}</textarea>
+
+        ${total>1?`
+        <div class="activity-entry-actions">
+          <button type="button" class="remove-activity">Usuń aktywność</button>
+        </div>`:''}
       </div>
-
-      <label>Rodzaj aktywności</label>
-      <select class="activity-type">
-        ${activityOptionsHtml(type)}
-      </select>
-
-      <div class="activity-metrics"></div>
-
-      <label>Notatka</label>
-      <textarea class="activity-note" placeholder="Jak się czułem? Co zrobiłem?">${escapeHtml(note)}</textarea>
     </div>`;
 }
 
-/* Rysuje wszystkie aktywności zapisane/edytowane dla wybranego dnia. */
-function renderActivitiesEditor(activities=[]){
+/* Rysuje wszystkie aktywności zapisane/edytowane dla wybranego dnia.
+   Gdy jest ich kilka, zapisane aktywności są domyślnie zwinięte. */
+function renderActivitiesEditor(activities=[], options={}){
   const list=document.getElementById('activitiesList');
   const items=activities.length?activities:[{}];
+  const expandedIndex=Number.isInteger(options.expandedIndex) ? options.expandedIndex : (items.length===1 ? 0 : -1);
 
   list.classList.add('activities-list');
-  list.innerHTML=items.map((activity,index)=>activityEntryHtml(activity,index,items.length)).join('');
+  list.innerHTML=items.map((activity,index)=>{
+    const collapsed=index!==expandedIndex;
+    return activityEntryHtml(activity,index,items.length,collapsed);
+  }).join('');
 
   list.querySelectorAll('.activity-entry').forEach((entryEl,index)=>{
     renderActivityMetricsForEntry(entryEl,items[index]?.metrics||{});
+    refreshActivityCardSummary(entryEl);
   });
 }
 
@@ -1197,6 +1284,22 @@ function collectActivityFromEntry(entryEl){
     label:activityLabels[type]||'',
     metrics,
     note
+  };
+}
+
+/* Odświeża tekst w nagłówku zwiniętej aktywności. */
+function refreshActivityCardSummary(entryEl){
+  const activity=collectActivityFromEntry(entryEl);
+  const summaryEl=entryEl.querySelector('.activity-summary');
+  if(summaryEl) summaryEl.textContent=activityCollapsedSummary(activity);
+}
+
+/* Zapisuje bieżące formularze i stan rozwinięcia przed ponownym renderem. */
+function currentActivitiesWithOpenState(){
+  const entries=[...document.querySelectorAll('#activitiesList .activity-entry')];
+  return {
+    activities:entries.map(collectActivityFromEntry),
+    expandedIndex:entries.findIndex(el=>!el.classList.contains('collapsed'))
   };
 }
 
@@ -1238,13 +1341,14 @@ function normalizeActivities(entry={}){
   return [];
 }
 
-/* Dodaje kolejny pusty formularz, zachowując to co już wpisano. */
+/* Dodaje kolejną aktywność.
+   Poprzednie aktywności się zwijają, a nowa otwiera automatycznie. */
 document.getElementById('addActivity').addEventListener('click',()=>{
   const current=[...document.querySelectorAll('#activitiesList .activity-entry')]
     .map(collectActivityFromEntry);
 
   current.push({});
-  renderActivitiesEditor(current);
+  renderActivitiesEditor(current,{expandedIndex:current.length-1});
 });
 
 /* Zmiana rodzaju aktywności odświeża tylko pola dla tej konkretnej aktywności. */
@@ -1253,24 +1357,49 @@ document.getElementById('activitiesList').addEventListener('change',event=>{
 
   const entryEl=event.target.closest('.activity-entry');
   renderActivityMetricsForEntry(entryEl,{});
+  refreshActivityCardSummary(entryEl);
 
   if(event.target.value){
     document.getElementById('activityDone').checked=true;
   }
 });
 
+/* Aktualizuje krótki opis aktywności podczas wpisywania. */
+document.getElementById('activitiesList').addEventListener('input',event=>{
+  const entryEl=event.target.closest('.activity-entry');
+  if(entryEl) refreshActivityCardSummary(entryEl);
+});
+
+/* Kliknięcie nagłówka rozwija lub zwija aktywność. */
+document.getElementById('activitiesList').addEventListener('click',event=>{
+  const toggle=event.target.closest('.activity-toggle');
+  if(!toggle) return;
+
+  const entryEl=toggle.closest('.activity-entry');
+  const isCollapsed=entryEl.classList.toggle('collapsed');
+  toggle.setAttribute('aria-expanded',String(!isCollapsed));
+  refreshActivityCardSummary(entryEl);
+});
+
 /* Usuwa wybraną aktywność z formularza. */
 document.getElementById('activitiesList').addEventListener('click',event=>{
   if(!event.target.classList.contains('remove-activity')) return;
 
-  const current=[...document.querySelectorAll('#activitiesList .activity-entry')]
-    .filter(el=>el!==event.target.closest('.activity-entry'))
+  event.stopPropagation();
+
+  const removed=event.target.closest('.activity-entry');
+  const entries=[...document.querySelectorAll('#activitiesList .activity-entry')];
+  const removedIndex=entries.indexOf(removed);
+
+  const current=entries
+    .filter(el=>el!==removed)
     .map(collectActivityFromEntry);
 
-  renderActivitiesEditor(current);
+  const nextOpen=current.length ? Math.min(removedIndex,current.length-1) : 0;
+  renderActivitiesEditor(current,{expandedIndex:nextOpen});
 });
 
-renderActivitiesEditor([]);
+renderActivitiesEditor([],{expandedIndex:0});
 
 
 /* =========================================================
@@ -1500,7 +1629,11 @@ function loadJournal(date){
   }
 
   activityDone.checked=!!e.activityDone;
-  renderActivitiesEditor(normalizeActivities(e));
+  const savedActivities=normalizeActivities(e);
+  renderActivitiesEditor(
+    savedActivities,
+    {expandedIndex:savedActivities.length===1 ? 0 : -1}
+  );
 
   wordSource.value=e.wordSource||'Biblia';
   wordRef.value=e.wordRef||'';
@@ -1736,7 +1869,7 @@ document.getElementById('resetData').onclick=()=>{
    ========================================================= */
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('./service-worker.js?v=4')
+    navigator.serviceWorker.register('./service-worker.js?v=5')
       .then(reg => console.log('Service worker registered:', reg.scope))
       .catch(err => console.error('Service worker registration failed:', err));
   });
