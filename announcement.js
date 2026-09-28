@@ -6,6 +6,9 @@
    Treść edytujesz w: data/announcement.json
    Nie ma daty wygaśnięcia — active:true pokazuje ogłoszenie,
    active:false je ukrywa.
+
+   Karta jest domyślnie zwinięta. Kliknięcie nagłówka ją rozwija.
+   Po rozwinięciu kolejność jest: tekst -> plakat -> opcjonalny link.
    ========================================================= */
 
 (function(){
@@ -27,22 +30,23 @@
         box-shadow:var(--shadow);
       }
       .announcement.show{display:block}
-      .announcement-image-wrap{
-        display:none;
+
+      .announcement-toggle{
         width:100%;
-        background:#0d0d0d;
-        border-bottom:1px solid rgba(216,189,132,.12);
+        border:0;
+        background:transparent;
+        color:var(--cream);
+        padding:18px 19px;
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        gap:14px;
+        text-align:left;
       }
-      .announcement-image-wrap.show{display:block}
-      .announcement-image{
-        display:block;
-        width:100%;
-        height:auto;
-        max-height:620px;
-        object-fit:contain;
-        background:#0d0d0d;
+      .announcement-toggle-copy{
+        min-width:0;
+        flex:1;
       }
-      .announcement-copy{padding:18px 19px}
       .announcement-kicker{
         color:var(--gold);
         font-size:10px;
@@ -57,16 +61,61 @@
         font-size:21px;
         line-height:1.2;
       }
+      .announcement-chevron{
+        flex:0 0 auto;
+        color:var(--gold);
+        font-size:18px;
+        line-height:1;
+        transform:rotate(-90deg);
+        transition:transform .18s ease;
+      }
+      .announcement.expanded .announcement-chevron{
+        transform:rotate(0deg);
+      }
+
+      .announcement-body{
+        display:none;
+        border-top:1px solid rgba(216,189,132,.10);
+      }
+      .announcement.expanded .announcement-body{
+        display:block;
+      }
+      .announcement-text{
+        padding:15px 19px 17px;
+      }
       .announcement-message{
-        margin:9px 0 0;
+        margin:0;
         color:#c8c2b7;
         font-size:12px;
         line-height:1.55;
         white-space:pre-line;
       }
-      .announcement-link{
+
+      /* Poster jest celowo POD tekstem ogłoszenia. */
+      .announcement-image-wrap{
         display:none;
-        margin-top:14px;
+        width:100%;
+        background:#0d0d0d;
+        border-top:1px solid rgba(216,189,132,.12);
+      }
+      .announcement-image-wrap.show{display:block}
+      .announcement-image{
+        display:block;
+        width:100%;
+        height:auto;
+        max-height:620px;
+        object-fit:contain;
+        background:#0d0d0d;
+      }
+
+      .announcement-link-wrap{
+        display:none;
+        padding:14px 19px 18px;
+        border-top:1px solid rgba(216,189,132,.10);
+      }
+      .announcement-link-wrap.show{display:block}
+      .announcement-link{
+        display:block;
         width:100%;
         text-decoration:none;
         text-align:center;
@@ -77,7 +126,6 @@
         font-weight:900;
         font-size:12px;
       }
-      .announcement-link.show{display:block}
     `;
     document.head.appendChild(style);
   }
@@ -93,18 +141,37 @@
     card.className='announcement';
     card.id='announcementCard';
     card.innerHTML=`
-      <div class="announcement-image-wrap" id="announcementImageWrap">
-        <img class="announcement-image" id="announcementImage" alt="">
-      </div>
-      <div class="announcement-copy">
-        <div class="announcement-kicker">Ogłoszenie</div>
-        <h3 id="announcementTitle"></h3>
-        <p class="announcement-message" id="announcementMessage"></p>
-        <a class="announcement-link" id="announcementLink" target="_blank" rel="noopener noreferrer"></a>
+      <button type="button" class="announcement-toggle" id="announcementToggle" aria-expanded="false" aria-controls="announcementBody">
+        <span class="announcement-toggle-copy">
+          <span class="announcement-kicker">Ogłoszenie</span>
+          <h3 id="announcementTitle"></h3>
+        </span>
+        <span class="announcement-chevron" aria-hidden="true">⌄</span>
+      </button>
+
+      <div class="announcement-body" id="announcementBody">
+        <div class="announcement-text" id="announcementTextWrap">
+          <p class="announcement-message" id="announcementMessage"></p>
+        </div>
+
+        <div class="announcement-image-wrap" id="announcementImageWrap">
+          <img class="announcement-image" id="announcementImage" alt="">
+        </div>
+
+        <div class="announcement-link-wrap" id="announcementLinkWrap">
+          <a class="announcement-link" id="announcementLink" target="_blank" rel="noopener noreferrer"></a>
+        </div>
       </div>
     `;
 
     hero.insertAdjacentElement('afterend',card);
+
+    const toggle=card.querySelector('#announcementToggle');
+    toggle.addEventListener('click',()=>{
+      const expanded=card.classList.toggle('expanded');
+      toggle.setAttribute('aria-expanded',String(expanded));
+    });
+
     return card;
   }
 
@@ -124,7 +191,7 @@
       const announcement=await response.json();
 
       if(!announcement || announcement.active !== true){
-        card.classList.remove('show');
+        card.classList.remove('show','expanded');
         return;
       }
 
@@ -136,17 +203,17 @@
       const linkText=String(announcement.linkText||'Zobacz więcej').trim();
 
       if(!title && !message && !image){
-        card.classList.remove('show');
+        card.classList.remove('show','expanded');
         return;
       }
 
       const titleEl=document.getElementById('announcementTitle');
-      titleEl.textContent=title;
-      titleEl.style.display=title?'block':'none';
+      titleEl.textContent=title || 'Ogłoszenie';
 
       const messageEl=document.getElementById('announcementMessage');
+      const textWrap=document.getElementById('announcementTextWrap');
       messageEl.textContent=message;
-      messageEl.style.display=message?'block':'none';
+      textWrap.style.display=message?'block':'none';
 
       const imageWrap=document.getElementById('announcementImageWrap');
       const imageEl=document.getElementById('announcementImage');
@@ -160,21 +227,27 @@
         imageWrap.classList.remove('show');
       }
 
+      const linkWrap=document.getElementById('announcementLinkWrap');
       const linkEl=document.getElementById('announcementLink');
       if(link){
         linkEl.href=link;
         linkEl.textContent=linkText;
-        linkEl.classList.add('show');
+        linkWrap.classList.add('show');
       }else{
         linkEl.removeAttribute('href');
         linkEl.textContent='';
-        linkEl.classList.remove('show');
+        linkWrap.classList.remove('show');
       }
+
+      /* Każde świeżo wczytane ogłoszenie zaczyna zwinięte. */
+      card.classList.remove('expanded');
+      const toggle=document.getElementById('announcementToggle');
+      if(toggle) toggle.setAttribute('aria-expanded','false');
 
       card.classList.add('show');
     }catch(error){
       console.warn('Nie udało się pobrać ogłoszenia:',error);
-      card.classList.remove('show');
+      card.classList.remove('show','expanded');
     }
   }
 
